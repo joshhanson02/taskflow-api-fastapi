@@ -1,0 +1,11 @@
+| Folder       | Vai trò                     |
+| ------------ | --------------------------- |
+| controllers  | route/api endpoint          |
+| services     | business logic              |
+| repositories | query database              |
+| models       | SQLAlchemy models           |
+| schemas      | request/response validation |
+| db           | database connection         |
+| core         | config/security             |
+| middleware   | exception handling          |
+| utils        | helper functions            |
