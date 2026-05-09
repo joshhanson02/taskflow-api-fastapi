@@ -1,6 +1,16 @@
-.env
-.venv/
+# Python rác
 __pycache__/
 *.py[cod]
 *$py.class
-.pytest_cache/
+
+# Môi trường ảo
+.venv/
+venv/
+ENV/
+
+# File cấu hình nhạy cảm
+.env
+
+# IDE rác
+.vscode/
+.idea/
