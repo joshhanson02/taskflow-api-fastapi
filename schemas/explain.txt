@@ -1,0 +1,1 @@
+Thư mục này dùng để xác thực các kiểu dữ liệu đầu vào sao cho đúng với prompt đã được khai báo trong code python. Dùng thư viện pydantic để làm.
