@@ -5,7 +5,9 @@ from jose import jwt  # Tạo JWT token hoặc encode/decode token
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv  # Dùng để đọc file .env
 import os  # Cái này dùng để đọc biến môi trường
-
+# 10/05/2026: Lưu ý cực mạnh, lỗi kinh điển khi test hash password là không khớp version
+# passlib và bcrypt, passlib == 1.7.4 và bcrypt >= 4.1 không hợp nhau,
+# cài lại thư viện bcrypt thành bản 4.0.1
 load_dotenv()
 # Lấy mấy cái giá trị trong file .env để dùng cho authentication
 DATABASE_URL = os.getenv(
@@ -25,10 +27,6 @@ pwd_context = CryptContext(
 
 
 def hash_password(password: str):
-    print(password)
-    print(repr(password))
-    print(len(password))
-    print(len(password.encode("utf-8")))
     return pwd_context.hash(password)
 # Băm password gốc của user và trả về kết quả
 
