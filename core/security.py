@@ -22,7 +22,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(
 pwd_context = CryptContext(
     schemes=["bcrypt"],  # biểu hiện thuật toán muốn sử dụng để băm
     deprecated="auto"  # Tự động nhận diện thuật toán mới và cho những thuật toán cũ là lỗi thời,
-    # sau đó nó sẽ nhận diện các mật khẩu cũ và yêu cầu user đặt lại mật khẩu
+    # Nếu password được hash bằng thuật toán cũ,
+    # passlib vẫn verify được và hỗ trợ rehash sang thuật toán mới
 )
 
 
