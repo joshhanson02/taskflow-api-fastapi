@@ -1,10 +1,8 @@
-from passlib.context import CryptContext  # Dùng để hashing password
-# CryptContext là một bộ quản lý manager từ thư viện passlib, giúp quản lý các thuật toán băm (hashing algorithms).
-from jose import jwt  # Tạo JWT token hoặc encode/decode token
-# dùng để lấy thời gian hiện tại và cộng thêm thời gian hết token
+from passlib.context import CryptContext
+from jose import jwt
 from datetime import datetime, timedelta, timezone
-from dotenv import load_dotenv  # Dùng để đọc file .env
-import os  # Cái này dùng để đọc biến môi trường
+from dotenv import load_dotenv
+import os
 # 10/05/2026: Lưu ý cực mạnh, lỗi kinh điển khi test hash password là không khớp version
 # passlib và bcrypt, passlib == 1.7.4 và bcrypt >= 4.1 không hợp nhau,
 # cài lại thư viện bcrypt thành bản 4.0.1
@@ -39,14 +37,14 @@ def verify_password(plain_password, hashed_password):
 
 
 def create_access_token(data: dict):
-    to_encode = data.copy()  # Dùng để copy dữ liệu, tránh sửa object gốc
+    to_encode = data.copy()  # Tránh làm thay đổi nội dung ban đầu của dữ liệu.
 
     expire = datetime.now(timezone.utc) + \
         timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     # Thời gian hiện tại + với thời gian hết hạn của token
 
-    to_encode.update({"exp": expire})  # Thêm expiration vào payload JWT
-    # Nó sẽ tự check exp trong payload của JWT để xem chừng nào hết hạn thì nó out
+    # Dùng để cập nhật exp vào payload của người dùng
+    to_encode.update({"exp": expire})
 
     # Secret key nó giống signature chữ ký, check xem có chuẩn không
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
