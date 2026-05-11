@@ -1,5 +1,6 @@
 from passlib.context import CryptContext
 from jose import jwt
+from jose.exceptions import JWTError
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 import os
@@ -50,3 +51,12 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
   # trả về JWT đã mã hoá
+
+
+def verify_token(token: str):
+    # Để bắt các lỗi liên quan đến token(token expired, invalid SECRET_KEY, ...)
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except JWTError:
+        return None

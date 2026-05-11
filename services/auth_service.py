@@ -22,10 +22,10 @@ def register_user(db: Session, username: str, email: str, password: str):
     return create_user(db, new_user)
 
 
-def login_user(db: Session, email: str, password: str):
+def login_user(db: Session, identifier, password):
   # logic đăng nhập
     # Gọi get_user_by_email bên user_repository
-    user = get_user_by_email(db, email)
+    user = get_user_by_email(db, identifier)
     if not user:
         return None
 
@@ -36,7 +36,7 @@ def login_user(db: Session, email: str, password: str):
 
     access_token = create_access_token(
         data={
-            "sub": str(user.id)
+            "sub": user.email
         }
     )
 
