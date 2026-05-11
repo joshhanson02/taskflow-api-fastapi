@@ -10,6 +10,7 @@ ENV/
 
 # File cấu hình nhạy cảm
 .env
+alembic.ini
 
 # IDE rác
 .vscode/
