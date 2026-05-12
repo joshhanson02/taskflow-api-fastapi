@@ -7,19 +7,21 @@ from fastapi.security import OAuth2PasswordRequestForm
 from services.auth_service import (register_user, login_user)
 from dependencies.auth_dependency import get_current_user
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/auth",
+    tags=["Auth"]
+)
 
 
 @router.post("/register", response_model=UserResponse)
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
     user = register_user(db, request.username, request.email, request.password)
     if not user:
-        return {
-            "message": "Email already exists"
-        }
-    return {
-        "message": "User created successfully"
-    }
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already exists"
+        )
+    return user
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -38,10 +40,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     }
 
 
-@router.get("/me")
+@router.get("/me", response_model=UserResponse)
 def get_me(current_user=Depends(get_current_user)):
-    return {
-        "id": current_user.id,
-        "email": current_user.email,
-        "username": current_user.username
-    }
+    return current_user

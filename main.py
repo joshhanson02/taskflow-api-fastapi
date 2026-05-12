@@ -1,10 +1,12 @@
 from fastapi import FastAPI
-from controllers.auth_controller import (router as auth_router)
-
+from controllers import auth_controller
+from controllers import admin_controller
 app = FastAPI()
 
 app.include_router(
-    auth_router,
-    prefix="/auth",
-    tags=["Auth"]
+    auth_controller.router
+)
+
+app.include_router(
+    admin_controller.router
 )
