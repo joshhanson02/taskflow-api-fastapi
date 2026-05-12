@@ -6,6 +6,7 @@ from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from services.auth_service import (register_user, login_user)
 from dependencies.auth_dependency import get_current_user
+from exceptions.auth_exception import EmailAlreadyExistsException, InvalidCredentialsException
 
 router = APIRouter(
     prefix="/auth",
@@ -17,10 +18,7 @@ router = APIRouter(
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
     user = register_user(db, request.username, request.email, request.password)
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already exists"
-        )
+        raise EmailAlreadyExistsException()
     return user
 
 
@@ -29,11 +27,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     token = login_user(db, form_data.username, form_data.password)
 
     if not token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise InvalidCredentialsException()
     return {
         "access_token": token,
         "token_type": "bearer"
