@@ -44,18 +44,13 @@ def get_tasks(
 
 
 @router.put("/update_task/{task_id}", response_model=TaskResponse)
-def update_task(
+def update_existing_task(
     task_id: int,
     request: TaskUpdate,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)
 ):
-    return update_user_task(
-        db=db,
-        task_id=task_id,
-        task_data=request,
-        current_user=current_user
-    )
+    return update_user_task(db, task_id, request, current_user)
 
 
 @router.delete("/delete_task/{task_id}")
@@ -64,8 +59,4 @@ def delete_task(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)
 ):
-    return delete_user_task(
-        db=db,
-        task_id=task_id,
-        current_user=current_user
-    )
+    return delete_user_task(db, task_id, current_user)

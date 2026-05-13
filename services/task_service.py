@@ -19,7 +19,7 @@ def get_user_tasks(db, current_user, status=None, priority=None, search=None, sk
     )
 
 
-def update_user_task(db, task_id, task_data, current_user):
+def update_user_task(db, task_id, request, current_user):
     task = get_task_by_id(db, task_id)
 
     if not task:
@@ -28,7 +28,22 @@ def update_user_task(db, task_id, task_data, current_user):
     if task.owner_id != current_user.id:
         raise ForbiddenException()
 
-    return update_task(db, task, task_data)
+    if request.title is not None:
+        task.title = request.title
+
+    if request.description is not None:
+        task.description = request.description
+
+    if request.status is not None:
+        task.status = request.status
+
+    if request.priority is not None:
+        task.priority = request.priority
+
+    if request.due_date is not None:
+        task.due_date = request.due_date
+
+    return update_task(db, task, request)
 
 
 def delete_user_task(db, task_id, current_user):
