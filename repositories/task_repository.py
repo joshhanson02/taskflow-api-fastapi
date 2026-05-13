@@ -4,12 +4,14 @@ from sqlalchemy import or_
 from typing import Optional
 
 
-def create_task(db: Session, task_data, owner_id: int):
+def create_task(db: Session, request, current_user):
     task = Task(
-        title=task_data.title,
-        description=task_data.description,
-        priority=task_data.priority,
-        owner_id=owner_id
+        title=request.title,
+        description=request.description,
+        status=request.status,
+        priority=request.priority,
+        due_date=request.due_date,
+        owner_id=current_user.id
     )
 
     db.add(task)

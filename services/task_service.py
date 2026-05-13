@@ -1,13 +1,10 @@
 from exceptions.task_exception import TaskNotFoundException, ForbiddenException
 from repositories.task_repository import create_task, get_task_by_id, get_tasks, update_task, delete_task
+from models.task_model import Task
 
 
-def create_new_task(db, task_data, current_user):
-    return create_task(
-        db=db,
-        task_data=task_data,
-        owner_id=current_user.id
-    )
+def create_new_task(db, request, current_user):
+    return create_task(db, request, current_user)
 
 
 def get_user_tasks(db, current_user, status=None, priority=None, search=None, skip=0, limit=10):

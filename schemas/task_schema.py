@@ -1,14 +1,16 @@
 from pydantic import BaseModel, Field
-from typing import Optional
 from datetime import datetime
 from sqlalchemy import Enum
+from typing import Optional
 import enum
 
 
 class TaskCreate(BaseModel):
     title: str = Field(..., min_length=3)
     description: Optional[str] = None
-    priority: Optional[str] = "medium"
+    status: str = "pending"
+    priority: str = "medium"
+    due_date: Optional[datetime] = None
 
 
 class TaskStatus(str, enum.Enum):
@@ -24,10 +26,11 @@ class TaskPriority(str, enum.Enum):
 
 
 class TaskUpdate(BaseModel):
-    title: str
+    title: Optional[str] = None
     description: Optional[str] = None
-    status: str
-    priority: str
+    status: Optional[str] = None
+    priority: Optional[str] = None
+    due_date: Optional[datetime] = None
 
 
 class TaskResponse(BaseModel):
@@ -36,8 +39,10 @@ class TaskResponse(BaseModel):
     description: Optional[str]
     status: str
     priority: str
-    owner_id: int
+    due_date: Optional[datetime]
     created_at: datetime
+    updated_at: datetime
+    owner_id: int
 
     class Config:
         from_attributes = True

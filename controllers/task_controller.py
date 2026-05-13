@@ -18,11 +18,7 @@ def create_task(
     current_user=Depends(get_current_user)
 ):
 
-    return create_new_task(
-        db=db,
-        task_data=request,
-        current_user=current_user
-    )
+    return create_new_task(db, request, current_user)
 
 
 @router.get("/get_tasks", response_model=list[TaskResponse])
