@@ -43,7 +43,7 @@ def get_tasks(
             Task.title.ilike(f"%{search}%"),
             Task.description.ilike(f"%{search}%")
         ))
-
+    query = query.order_by(Task.created_at.desc())
     query = query.offset(skip).limit(limit)
     return query.all()
 
