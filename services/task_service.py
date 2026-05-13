@@ -42,4 +42,4 @@ def delete_user_task(db, task_id, current_user):
     if task.owner_id != current_user.id:
         raise ForbiddenException()
 
-    delete_task(db, task)
+    return delete_task(db, task)

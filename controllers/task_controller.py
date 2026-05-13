@@ -11,10 +11,7 @@ router = APIRouter(
 )
 
 
-@router.post(
-    "",
-    response_model=TaskResponse
-)
+@router.post("/create_task", response_model=TaskResponse)
 def create_task(
     request: TaskCreate,
     db: Session = Depends(get_db),
@@ -28,10 +25,7 @@ def create_task(
     )
 
 
-@router.get(
-    "",
-    response_model=list[TaskResponse]
-)
+@router.get("/get_tasks", response_model=list[TaskResponse])
 def get_tasks(
     status: str | None = None,
     priority: str | None = None,
@@ -50,4 +44,32 @@ def get_tasks(
         search=search,
         skip=skip,
         limit=limit
+    )
+
+
+@router.put("/update_task/{task_id}", response_model=TaskResponse)
+def update_task(
+    task_id: int,
+    request: TaskUpdate,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    return update_user_task(
+        db=db,
+        task_id=task_id,
+        task_data=request,
+        current_user=current_user
+    )
+
+
+@router.delete("/delete_task/{task_id}")
+def delete_task(
+    task_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
+    return delete_user_task(
+        db=db,
+        task_id=task_id,
+        current_user=current_user
     )
