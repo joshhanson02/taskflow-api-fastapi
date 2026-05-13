@@ -12,6 +12,19 @@ class Task(Base):
     status = Column(String, default="pending")
     priority = Column(String, default="medium")
     owner_id = Column(Integer, ForeignKey("users.id"))
-    created_at = Column(DateTime(timezone=True),
-                        default=lambda: datetime.now(timezone.utc))
+    created_at = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    updated_at = Column(
+        DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc)
+    )
+
+    due_date = Column(
+        DateTime(timezone=True),
+        nullable=True
+    )
     owner = relationship("User", back_populates="tasks")
