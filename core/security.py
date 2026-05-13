@@ -3,20 +3,10 @@ from jose import jwt
 from jose.exceptions import JWTError
 from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
-import os
+from core.config import settings
 # 10/05/2026: Lưu ý cực mạnh, lỗi kinh điển khi test hash password là không khớp version
 # passlib và bcrypt, passlib == 1.7.4 và bcrypt >= 4.1 không hợp nhau,
 # cài lại thư viện bcrypt thành bản 4.0.1
-load_dotenv()
-# Lấy mấy cái giá trị trong file .env để dùng cho authentication
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", "postgresql://user:pass@localhost/db")  # Connect database
-# Secret key là khoá bí mật để ký JWT
-SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key_123")
-# Cái này là thông tin thuật toán dùng để băm HMAC + SHA256
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(
-    os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))  # Thời gian sống của token
 
 pwd_context = CryptContext(
     schemes=["bcrypt"],  # biểu hiện thuật toán muốn sử dụng để băm
@@ -41,14 +31,15 @@ def create_access_token(data: dict):
     to_encode = data.copy()  # Tránh làm thay đổi nội dung ban đầu của dữ liệu.
 
     expire = datetime.now(timezone.utc) + \
-        timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     # Thời gian hiện tại + với thời gian hết hạn của token
 
     # Dùng để cập nhật exp vào payload của người dùng
     to_encode.update({"exp": expire})
 
     # Secret key nó giống signature chữ ký, check xem có chuẩn không
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
   # trả về JWT đã mã hoá
 
@@ -56,7 +47,8 @@ def create_access_token(data: dict):
 def verify_token(token: str):
     # Để bắt các lỗi liên quan đến token(token expired, invalid SECRET_KEY, ...)
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY,
+                             algorithms=[settings.ALGORITHM])
         return payload
     except JWTError:
         return None
