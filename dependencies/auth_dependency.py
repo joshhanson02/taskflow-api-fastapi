@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from sqlalchemy.orm import Session
 from db.session import get_db
 from models.user_model import User
@@ -17,8 +17,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if email is None:
         raise InvalidCredentialsException()
 
-    user = db.query(User).filter(
-        User.email == email).first()
+    user = db.query(User).filter(User.email == email).first()
     if user is None:
         raise UserNotFoundException()
 
@@ -30,7 +29,6 @@ def require_role(required_role: str):
         current_user: User = Depends(get_current_user)
     ):
         if str(current_user.role) != required_role:
-
             raise PermissionDeniedException()
         return current_user
     return role_checker
