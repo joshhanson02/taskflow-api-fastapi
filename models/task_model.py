@@ -13,7 +13,7 @@ class Task(Base):
     status = Column(SQLAlchemyEnum(TaskStatus), default=TaskStatus.pending)
     priority = Column(SQLAlchemyEnum(TaskPriority),
                       default=TaskPriority.medium)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("users.id"), index=True)
     created_at = Column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc)
@@ -22,7 +22,8 @@ class Task(Base):
     updated_at = Column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc)
+        onupdate=lambda: datetime.now(timezone.utc),
+        index=True
     )
 
     due_date = Column(

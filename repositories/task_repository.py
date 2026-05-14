@@ -29,9 +29,8 @@ def get_tasks(
     skip: int = 0,
     limit: int = 10
 ):
-    query = db.query(Task)
 
-    query = query.filter(Task.owner_id == owner_id)
+    query = db.query(Task).filter(Task.owner_id == owner_id)
 
     if status:
         query = query.filter(Task.status == status)
@@ -45,9 +44,8 @@ def get_tasks(
             Task.title.ilike(f"%{search}%"),
             Task.description.ilike(f"%{search}%")
         ))
-    query = query.order_by(Task.created_at.desc())
-    query = query.offset(skip).limit(limit)
-    return query.all()
+    query = query.order_by(Task.updated_at.desc())
+    return query.offset(skip).limit(limit).all()
 
 
 def get_task_by_id(db: Session, task_id: int):

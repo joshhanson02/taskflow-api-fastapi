@@ -2,7 +2,7 @@ from fastapi import (APIRouter, Depends)
 from sqlalchemy.orm import Session
 from db.session import get_db
 from dependencies.auth_dependency import get_current_user
-from schemas.task_schema import TaskCreate, TaskUpdate, TaskResponse
+from schemas.task_schema import TaskCreate, TaskUpdate, TaskResponse, TaskStatus, TaskPriority
 from services.task_service import create_new_task, get_user_tasks, update_user_task, delete_user_task
 
 router = APIRouter(
@@ -23,8 +23,8 @@ def create_task(
 
 @router.get("/get_tasks", response_model=list[TaskResponse])
 def get_tasks(
-    status: str | None = None,
-    priority: str | None = None,
+    status: TaskStatus | None = None,
+    priority: TaskPriority | None = None,
     search: str | None = None,
     skip: int = 0,
     limit: int = 10,
