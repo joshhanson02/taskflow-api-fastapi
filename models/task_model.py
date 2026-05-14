@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum as SQLAlchemyEnum
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 from db.database import Base
+from schemas.task_schema import TaskStatus, TaskPriority
 
 
 class Task(Base):
@@ -9,8 +10,9 @@ class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     description = Column(String)
-    status = Column(String, default="pending")
-    priority = Column(String, default="medium")
+    status = Column(SQLAlchemyEnum(TaskStatus), default=TaskStatus.pending)
+    priority = Column(SQLAlchemyEnum(TaskPriority),
+                      default=TaskPriority.medium)
     owner_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(
         DateTime(timezone=True),

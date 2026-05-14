@@ -5,14 +5,6 @@ from typing import Optional
 import enum
 
 
-class TaskCreate(BaseModel):
-    title: str = Field(..., min_length=3)
-    description: Optional[str] = None
-    status: str = "pending"
-    priority: str = "medium"
-    due_date: Optional[datetime] = None
-
-
 class TaskStatus(str, enum.Enum):
     pending = "pending"
     in_progress = "in_progress"
@@ -23,6 +15,14 @@ class TaskPriority(str, enum.Enum):
     low = "low"
     medium = "medium"
     high = "high"
+
+
+class TaskCreate(BaseModel):
+    title: str = Field(..., min_length=3)
+    description: Optional[str] = None
+    status: TaskStatus = TaskStatus.pending
+    priority: TaskPriority = TaskPriority.medium
+    due_date: Optional[datetime] = None
 
 
 class TaskUpdate(BaseModel):
@@ -37,8 +37,8 @@ class TaskResponse(BaseModel):
     id: int
     title: str
     description: Optional[str]
-    status: str
-    priority: str
+    status: TaskStatus
+    priority: TaskPriority
     due_date: Optional[datetime]
     created_at: datetime
     updated_at: datetime
