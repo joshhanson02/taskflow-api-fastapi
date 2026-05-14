@@ -2,6 +2,7 @@ from models.task_model import Task
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from typing import Optional
+from exceptions.task_exception import TaskNotFoundException
 
 
 def create_task(db: Session, request, current_user):
@@ -44,6 +45,10 @@ def get_tasks(
             Task.title.ilike(f"%{search}%"),
             Task.description.ilike(f"%{search}%")
         ))
+
+    if not query:
+        raise TaskNotFoundException()
+
     query = query.order_by(Task.updated_at.desc())
     return query.offset(skip).limit(limit).all()
 
