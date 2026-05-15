@@ -28,20 +28,7 @@ def update_user_task(db, task_id, request, current_user):
     if task.owner_id != current_user.id:
         raise ForbiddenException()
 
-    if request.title is not None:
-        task.title = request.title
-
-    if request.description is not None:
-        task.description = request.description
-
-    if request.status is not None:
-        task.status = request.status
-
-    if request.priority is not None:
-        task.priority = request.priority
-
-    if request.due_date is not None:
-        task.due_date = request.due_date
+    update_task = request.model_dump(exclude_unset=True)
 
     return update_task(db, task, request)
 

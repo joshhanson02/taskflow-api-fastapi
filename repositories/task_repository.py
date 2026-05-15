@@ -57,11 +57,9 @@ def get_task_by_id(db: Session, task_id: int):
     return (db.query(Task).filter(Task.id == task_id).first())
 
 
-def update_task(db: Session, task: Task, task_data):
-    task.title = task_data.title
-    task.description = task_data.description
-    task.status = task_data.status
-    task.priority = task_data.priority
+def update_task(db: Session, task: Task, update_data):
+    for key, value in update_data.items():
+        setattr(task, key, value)
 
     db.commit()
     db.refresh(task)
