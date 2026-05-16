@@ -1,6 +1,7 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler
+from core.config import settings
 
 # Tạo thư mục logs nếu chưa có
 if not os.path.exists("logs"):
@@ -28,8 +29,17 @@ console_handler = logging.StreamHandler()
 
 console_handler.setFormatter(formatter)
 
+if settings.ENV == "development":
+    log_level = logging.DEBUG
+
+elif settings.ENV == "production":
+    log_level = logging.INFO
+
+else:
+    log_level = logging.WARNING
+
 logging.basicConfig(
-    level=logging.INFO,
+    level=log_level,
     handlers=[
         file_handler,
         console_handler
