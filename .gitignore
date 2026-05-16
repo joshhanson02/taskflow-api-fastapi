@@ -15,3 +15,7 @@ alembic.ini
 # IDE rác
 .vscode/
 .idea/
+
+# Folder log
+logs/
+*.log
