@@ -54,3 +54,6 @@
 2026-05-16 10:32:07,790 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0080s
 2026-05-16 10:36:39,222 - core.logger - INFO - Application started
 2026-05-16 10:37:33,192 - core.logger - INFO - Application started
+2026-05-16 10:56:20,174 - middleware.logging_middleware - INFO - Application started
+2026-05-16 10:56:36,783 - middleware.logging_middleware - INFO - Application started
+2026-05-16 10:57:03,925 - middleware.logging_middleware - INFO - Application started
