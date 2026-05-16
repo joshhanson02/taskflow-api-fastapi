@@ -1,0 +1,56 @@
+2026-05-16 09:42:05,431 - INFO - Application started
+2026-05-16 09:43:18,328 - INFO - Application started
+2026-05-16 09:46:06,812 - INFO - Application started
+2026-05-16 09:48:22,278 - INFO - Application started
+2026-05-16 09:48:49,548 - INFO - Application started
+2026-05-16 09:50:55,033 - INFO - Application started
+2026-05-16 09:51:22,144 - INFO - Application started
+2026-05-16 09:51:35,155 - INFO - Application started
+2026-05-16 09:52:40,681 - INFO - Application started
+2026-05-16 09:53:24,739 - INFO - Application started
+2026-05-16 09:53:38,600 - INFO - Application started
+2026-05-16 09:53:51,692 - INFO - Application started
+2026-05-16 09:54:09,497 - INFO - Application started
+2026-05-16 09:56:55,259 - INFO - Application started
+2026-05-16 09:58:26,700 - INFO - Application started
+2026-05-16 09:58:42,706 - INFO - Application started
+2026-05-16 09:59:02,706 - INFO - Application started
+2026-05-16 10:01:28,100 - INFO - Application started
+2026-05-16 10:02:29,438 - INFO - Application started
+2026-05-16 10:02:40,201 - INFO - Application started
+2026-05-16 10:02:47,760 - INFO - Application started
+2026-05-16 10:05:06,185 - INFO - Login attempt for email: trunghieuidol02@gmail.com
+2026-05-16 10:05:06,528 - INFO - User 1 logged in successfully
+2026-05-16 10:08:39,900 - core.logger - INFO - Application started
+2026-05-16 10:12:58,212 - core.logger - INFO - Application started
+2026-05-16 10:13:28,839 - core.logger - INFO - Application started
+2026-05-16 10:22:21,861 - core.logger - INFO - Application started
+2026-05-16 10:24:04,259 - core.logger - INFO - Application started
+2026-05-16 10:24:11,127 - core.logger - INFO - Application started
+2026-05-16 10:24:15,512 - core.logger - INFO - Application started
+2026-05-16 10:24:18,827 - core.logger - INFO - Application started
+2026-05-16 10:29:56,267 - core.logger - INFO - Application started
+2026-05-16 10:29:58,198 - middleware.logging_middleware - INFO - Incoming request: GET /
+2026-05-16 10:29:58,198 - middleware.logging_middleware - INFO - Completed response: status=404 duration=0.0010s
+2026-05-16 10:30:01,943 - middleware.logging_middleware - INFO - Incoming request: GET /docs
+2026-05-16 10:30:01,944 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0010s
+2026-05-16 10:30:02,287 - middleware.logging_middleware - INFO - Incoming request: GET /openapi.json
+2026-05-16 10:30:02,346 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0593s
+2026-05-16 10:30:32,964 - middleware.logging_middleware - INFO - Incoming request: GET /docs
+2026-05-16 10:30:32,965 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0011s
+2026-05-16 10:30:33,201 - middleware.logging_middleware - INFO - Incoming request: GET /openapi.json
+2026-05-16 10:30:33,202 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0010s
+2026-05-16 10:30:44,334 - middleware.logging_middleware - INFO - Incoming request: POST /auth/login
+2026-05-16 10:30:44,338 - core.logger - INFO - Login attempt for email: trunghieuidol02@gmail.com
+2026-05-16 10:30:44,670 - core.logger - INFO - User 1 logged in successfully
+2026-05-16 10:30:44,671 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.3374s
+2026-05-16 10:30:50,284 - middleware.logging_middleware - INFO - Incoming request: GET /auth/me
+2026-05-16 10:30:50,296 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0120s
+2026-05-16 10:31:23,020 - middleware.logging_middleware - INFO - Incoming request: GET /tasks/get_tasks
+2026-05-16 10:31:23,024 - core.logger - INFO - User 1 fetched tasks
+2026-05-16 10:31:23,032 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0120s
+2026-05-16 10:32:07,782 - middleware.logging_middleware - INFO - Incoming request: GET /tasks/get_tasks
+2026-05-16 10:32:07,786 - core.logger - INFO - User 1 fetched tasks
+2026-05-16 10:32:07,790 - middleware.logging_middleware - INFO - Completed response: status=200 duration=0.0080s
+2026-05-16 10:36:39,222 - core.logger - INFO - Application started
+2026-05-16 10:37:33,192 - core.logger - INFO - Application started

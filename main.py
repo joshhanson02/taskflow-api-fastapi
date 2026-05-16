@@ -5,8 +5,12 @@ from handlers.exception_handler import auth_exception_handler
 from db.database import Base, engine
 from models.user_model import User
 from models.task_model import Task
+from core.logger import logger
+from middleware.logging_middleware import LoggingMiddleware
+
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
+app.add_middleware(LoggingMiddleware)
 app.include_router(
     auth_controller.router
 )
@@ -23,3 +27,5 @@ app.add_exception_handler(
     AuthException,
     auth_exception_handler
 )
+
+logger.info("Application started")

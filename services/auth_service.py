@@ -4,41 +4,75 @@ from models.user_model import User  # Thao tác với class User
 from repositories.user_repository import (get_user_by_email, create_user)
 # Lấy hash_password, verify_password và create_access_token trong core/security
 from core.security import (hash_password, verify_password, create_access_token)
+from core.logger import logger
 
 
 def register_user(db: Session, username: str, email: str, password: str):
-  # Logic đăng ký user
-    existing_user = get_user_by_email(db, email)
-    if existing_user:
-        return None
-    hashed_password = hash_password(password)
+    try:
+        # Logic đăng ký user
+        logger.info(
+            f"Registration attempt for email: {email}"
+        )
+        existing_user = get_user_by_email(db, email)
+        if existing_user:
+            logger.warning(
+                f"Registration failed - email already exists: {email}"
+            )
+            return None
+        hashed_password = hash_password(password)
 
-    new_user = User(
-        username=username,
-        email=email,
-        password=hashed_password
-    )
+        new_user = User(
+            username=username,
+            email=email,
+            password=hashed_password
+        )
 
-    return create_user(db, new_user)
+        created_user = create_user(db, new_user)
+
+        logger.info(
+            f"User registered successfully with ID {created_user.id}"
+        )
+        return created_user
+    except Exception as e:
+        logger.error(f"Registration error for {email}: {str(e)}")
+        raise
 
 
 def login_user(db: Session, identifier, password):
-  # logic đăng nhập
-    # Gọi get_user_by_email bên user_repository
-    user = get_user_by_email(db, identifier)
-    if not user:
-        return None
+    try:
+        # logic đăng nhập
+        # Gọi get_user_by_email bên user_repository
+        logger.info(
+            f"Login attempt for email: {identifier}"
+        )
+        user = get_user_by_email(db, identifier)
+        if not user:
+            logger.warning(
+                f"Login failed - user not found: {identifier}"
+            )
+            return None
 
-    # tạo biến để lưu kết quả so sánh giữa password trong database và password được nhập vào bởi client
-    valid_password = verify_password(password, user.password)
-    if not valid_password:
-        return None
+        # tạo biến để lưu kết quả so sánh giữa password trong database và password được nhập vào bởi client
+        valid_password = verify_password(password, user.password)
+        if not valid_password:
+            logger.warning(
+                f"Login failed - invalid password for: {identifier}"
+            )
+            return None
 
-    access_token = create_access_token(
-        data={
-            "sub": user.email,
-            "role": user.role
-        }
-    )
+        access_token = create_access_token(
+            data={
+                "sub": user.email,
+                "role": user.role
+            }
+        )
 
-    return access_token
+        logger.info(
+            f"User {user.id} logged in successfully"
+        )
+
+        return access_token
+
+    except Exception as e:
+        logger.error(f"Login error for {identifier}: {str(e)}")
+        raise
