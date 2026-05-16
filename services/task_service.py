@@ -1,7 +1,9 @@
 from exceptions.task_exception import TaskNotFoundException, ForbiddenException
 from repositories.task_repository import create_task, get_task_by_id, get_tasks, update_task, delete_task
 from models.task_model import Task
-from core.logger import logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def create_new_task(db, request, current_user):
@@ -61,13 +63,17 @@ def update_user_task(db, task_id, request, current_user):
             )
             raise ForbiddenException()
         update_data = request.model_dump(exclude_unset=True)
+        updated_task = update_task(db, task, update_data)
         logger.info(f"Task {task_id} updated successfully")
-        return update_task(db, task, update_data)
+        return updated_task
 
-    except Exception as e:
+    except (TaskNotFoundException, ForbiddenException):
+        raise
+
+    except Exception:
         logger.error(
-            f"Task update failed for "
-            f"task {task_id}: {str(e)}"
+            f"Task update failed | "
+            f"task {task_id}"
         )
         raise
 

@@ -45,5 +45,3 @@ logging.basicConfig(
         console_handler
     ]
 )
-
-logger = logging.getLogger(__name__)
