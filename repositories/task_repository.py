@@ -60,7 +60,6 @@ def get_task_by_id(db: Session, task_id: int):
 def update_task(db: Session, task: Task, update_data):
     for key, value in update_data.items():
         setattr(task, key, value)
-
     db.commit()
     db.refresh(task)
     return task

@@ -60,9 +60,9 @@ def update_user_task(db, task_id, request, current_user):
                 f"unauthorized update on task {task_id}"
             )
             raise ForbiddenException()
-
+        update_data = request.model_dump(exclude_unset=True)
         logger.info(f"Task {task_id} updated successfully")
-        return update_task(db, task, request)
+        return update_task(db, task, update_data)
 
     except Exception as e:
         logger.error(
