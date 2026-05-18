@@ -14,7 +14,11 @@ Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():
-    return {"message": "API chạy rồi đấy, bạn có thể test bằng cách truy cập đường dẫn /docs nhé"}
+    return {"message": "Chào mừng!",
+            "message": "API chạy rồi đấy, bạn có thể test bằng cách truy cập đường dẫn /docs nhé",
+            "message": "Welcome!",
+            "message": "The API is working now; you can test it by accessing the /docs directory."
+            }
 
 
 app.add_middleware(LoggingMiddleware)
