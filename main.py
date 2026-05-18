@@ -11,6 +11,12 @@ from middleware.logging_middleware import *
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
+
+@app.get("/")
+def read_root():
+    return {"message": "API chạy rồi đấy, bạn có thể test bằng cách truy cập đường dẫn /docs nhé"}
+
+
 app.add_middleware(LoggingMiddleware)
 
 app.include_router(
