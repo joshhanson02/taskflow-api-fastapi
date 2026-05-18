@@ -14,10 +14,10 @@ Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():
-    return {"message": "Chào mừng!",
-            "message": "API chạy rồi đấy, bạn có thể test bằng cách truy cập đường dẫn /docs nhé",
-            "message": "Welcome!",
-            "message": "The API is working now; you can test it by accessing the /docs directory."
+    return {"message": "Chào mừng! \n"
+            "API chạy rồi đấy, bạn có thể test bằng cách truy cập đường dẫn /docs nhé \n"
+            "Welcome! \n"
+            "The API is working now; you can test it by accessing the /docs directory. \n"
             }
 
 
