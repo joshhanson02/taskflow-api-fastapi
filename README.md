@@ -97,7 +97,7 @@ taskflow-api-fastapi/
 
 ---
 
-## Environment Variables
+## Requirements
 
 Create a `requirements.txt` file:
 
@@ -114,8 +114,6 @@ pytest
 httpx
 python-dotenv
 ```
-
----
 
 ---
 
