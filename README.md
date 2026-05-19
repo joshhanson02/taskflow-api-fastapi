@@ -9,6 +9,7 @@ Production-ready Task Management REST API built with FastAPI.
 TaskFlow API is a backend project developed to practice real-world backend engineering concepts using FastAPI and PostgreSQL.
 
 This project focuses on:
+
 - scalable API architecture
 - authentication & authorization
 - async backend development
@@ -39,21 +40,25 @@ The goal of this project is to simulate a production-ready backend system instea
 ## Tech Stack
 
 ### Backend
+
 - Python
 - FastAPI
 - Pydantic
 
 ### Database
+
 - PostgreSQL
 - SQLAlchemy
 - Alembic
 
 ### DevOps & Tools
+
 - Docker
 - GitHub Actions
 - Railway
 
 ### Testing
+
 - Pytest
 
 ---
@@ -92,6 +97,28 @@ taskflow-api-fastapi/
 
 ---
 
+## Environment Variables
+
+Create a `requirements.txt` file:
+
+```requirements.txt
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-jose
+passlib
+bcrypt
+alembic
+pytest
+httpx
+python-dotenv
+```
+
+---
+
+---
+
 ## Architecture
 
 The project follows a clean layered architecture:
@@ -112,6 +139,7 @@ The project follows a clean layered architecture:
   - Validates request and response data
 
 ### Benefits
+
 - Better scalability
 - Easier maintenance
 - Cleaner code separation
@@ -124,6 +152,7 @@ The project follows a clean layered architecture:
 This project uses JWT Authentication.
 
 ### Security Features
+
 - Password Hashing
 - JWT Access Token
 - Protected Routes
@@ -236,6 +265,7 @@ pytest
 ```
 
 The project includes tests for:
+
 - authentication
 - task CRUD operations
 - validation
@@ -246,6 +276,7 @@ The project includes tests for:
 ## CI/CD
 
 GitHub Actions automatically:
+
 - install dependencies
 - run unit tests
 - validate project on every push
@@ -255,6 +286,7 @@ GitHub Actions automatically:
 ## Deployment
 
 The application is deployed using:
+
 - Railway
 - Docker
 - PostgreSQL
@@ -280,5 +312,7 @@ Tran Nguyen Trung Hieu
 
 - GitHub: https://github.com/joshhanson02
 - LinkedIn: https://linkedin.com/in/joshhanson02
+
+```
 
 ```
