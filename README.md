@@ -63,18 +63,30 @@ The goal of this project is to simulate a production-ready backend system instea
 ```bash
 taskflow-api-fastapi/
 │
-├── routes/          # API endpoints
-├── services/        # Business logic layer
-├── repositories/    # Database operations
-├── models/          # SQLAlchemy models
-├── schemas/         # Request/Response schemas
-├── core/            # Security, config, auth
-├── database/        # Database connection
-├── tests/           # Unit tests
-├── main.py
-├── requirements.txt
+├── .github/workflows/     # GitHub Actions CI/CD workflows
+├── alembic/               # Database migrations
+├── controllers/           # Handle API request logic
+├── core/                  # Security, config, JWT settings
+├── db/                    # Database connection & session
+├── dependencies/          # FastAPI dependencies
+├── exceptions/            # Custom exception classes
+├── handlers/              # Global exception handlers
+├── middleware/            # Custom middleware
+├── models/                # SQLAlchemy database models
+├── repositories/          # Database query layer
+├── schemas/               # Pydantic request/response schemas
+├── services/              # Business logic layer
+├── tests/                 # Unit and integration tests
+│
+├── .dockerignore
+├── .env.example
+├── .gitignore
 ├── Dockerfile
 ├── docker-compose.yml
+├── explain-folders.txt
+├── main.py                # FastAPI application entry point
+├── requirements.txt
+├── start.sh               # Application startup script
 └── README.md
 ```
 
