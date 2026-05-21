@@ -3,16 +3,26 @@ from models.user_model import User
 
 
 def test_insert_and_query_user(db_session):
-    # Test Insert
-    new_user = User(username="hieu",
-                    email="trunghieuidol02@gmail.com", password="123")
-    db_session.add(new_user)
+    # 1. DỌN DẸP TRƯỚC: Xóa user test cũ nếu lỡ có từ lần chạy trước
+    db_session.query(User).filter(
+        User.email == "trunghieuidol02@gmail.com").delete()
     db_session.commit()
 
-    # Test Query / Filter
-    user = db_session.query(User).filter(User.username == "hieu").first()
-    assert user is not None
-    assert user.email == "trunghieuidol02@gmail.com"
+    # 2. TIẾN HÀNH TEST: Tạo mới bình thường
+    new_user = User(
+        username="hieu",
+        email="trunghieuidol02@gmail.com",
+        password="hashed_password_123"
+    )
+    db_session.add(new_user)
+    db_session.commit()
+    db_session.refresh(new_user)
+
+    # 3. Query lại để assert
+    user_in_db = db_session.query(User).filter(
+        User.email == "trunghieuidol02@gmail.com").first()
+    assert user_in_db is not None
+    assert user_in_db.username == "hieu"
 
 
 def test_update_user(db_session):
