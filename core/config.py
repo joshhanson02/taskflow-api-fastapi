@@ -6,7 +6,7 @@ load_dotenv()
 
 class Settings:
     ENV: str = os.getenv("ENV", "development")
-
+    REFRESH_TOKEN_EXPIRE_DAYS = 7
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
         "postgresql://user:pass@localhost/db"

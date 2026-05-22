@@ -27,6 +27,18 @@ def verify_password(plain_password, hashed_password):
 # Khi user nhập mật khẩu ví dụ 123456 nó sẽ tự băm theo quy trình và so sánh password đã băm trong database
 
 
+def create_refresh_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + \
+        timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
+    to_encode.update({"exp": expire})
+    return jwt.encode(
+        to_encode,
+        settings.SECRET_KEY,
+        algorithm=settings.ALGORITHM
+    )
+
+
 def create_access_token(data: dict):
     to_encode = data.copy()  # Tránh làm thay đổi nội dung ban đầu của dữ liệu.
 
@@ -52,3 +64,19 @@ def verify_token(token: str):
         return payload
     except JWTError:
         return None
+
+
+def verify_refresh_token(token: str):
+    try:
+        payload = jwt.decode(
+            token,
+            settings.SECRET_KEY,
+            settings.ALGORITHM
+        )
+
+        if payload.get("type") != "refresh":
+            return None
+        return payload
+    except JWTError:
+        return None
+#
